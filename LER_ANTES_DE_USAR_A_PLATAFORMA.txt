@@ -1,0 +1,16 @@
+Na powershell realizar o seguinte comando:
+-> cd C:\[.........]\netclone\netflix\netflixprj
+
+-> substituir [.........] pelo dirétorio onde se encontra a pasta netclone
+
+Instalar os seguintes pacotes:
+
+-> pip install django
+-> pip install django-allauth
+-> python -m pip install Pillow
+
+Conta para aceder ao /admin da plataforma:
+
+-> username OR email: admin OR admin@admin.com
+-> password: admin123
+

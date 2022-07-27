@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class='bg-primary_black min-h-screen py-20 md:py-32 flex-col flex items-center' style="padding-top: 190px;background-size:cover; background-repeat:no-repeat; background-position: center center;  background-image: url('{% static 'assets/backgroundFilmsTI.jpg' %}');">
+    <div class="flex flex-wrap justify-center  w-10/12  md:w-6/12">
+        <form method="post" action="{% url 'account_logout' %}" class="w-full md:w-8/12 bg-gray-900 p-5 rounded-lg">
+            <h1 class="text-4xl text-center text-gray-100 font-medium" style="padding-bottom: 9%;">
+                Logout
+            </h1>
+            <h1 class="text-center text-gray-100 font-medium" style="padding-bottom: 9%;">
+                See you soon! 
+            </h1>
+            {% csrf_token %}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+        <div class="flex justify-center items-center">
+            <button class="px-4 py-2 outline-none bg-primary_red text-gray-100" type="submit">Logout</button>
+        </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

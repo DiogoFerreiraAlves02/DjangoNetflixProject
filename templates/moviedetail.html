@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    .checked {
+    color: orange;
+    }
+    
+:root {
+  --star-size: 25px;
+  --star-color: #fff;
+  --star-background: #fc0;
+}
+
+.Stars {
+    padding-top: 3%;
+  --percent: calc(var(--rating) / 10.15 * 100%);
+  display: inline-block;
+  font-size: var(--star-size);
+  font-family: Times;
+  line-height: 1;
+}
+.Stars::before {
+  content: "★★★★★★★★★★";
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+</style>
+    <main class='bg-primary_black min-h-screen w-full'>
+        
+        <section class="h-screen relative bg-no-repeat pb-8 pl-6 flex justify-end items-end bg-cover" style="background-image: url('{{ movie.image_bg.url }}');">
+            <div>
+                <!-- <p style="margin-bottom: 250px;"><input type=button value="Previous Page" onClick="javascript:history.go(-1);"></p> -->
+                
+                <h2 class="text-6xl font-semibold text-white my-4" style="font-weight: bolder;">
+                    {{ movie.title }} 
+                </h2>
+                
+                <p class=" w-11/12 md:w-5/12 font-medium text-white my-4">
+                    {{movie.description|slice:":200"}}...
+                </p>
+                <div class="flex my-4">
+
+                    <a href="{% url 'netflixapp:play-movie' movie_id=movie.uuid %}" class="flex items-center py-2 px-1 rounded-md">
+                        <ion-icon name="play" class="text-2xl" ></ion-icon>
+                        <span class="ml-3 font-medium">
+                            Play
+                        </span>
+                    </a>                  
+                </div>
+                <div class="flex my-4">
+
+                    <a href="{% url 'netflixapp:play-movie-low' movie_id=movie.uuid %}" class="flex items-center py-2 px-1 rounded-md">
+                        <ion-icon name="play" class="text-2xl" ></ion-icon>
+                        <span class="ml-3 font-medium">
+                            Play Low Quality
+                        </span>
+                    </a>                  
+                </div>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 3.3%;"><img src="/static/assets/viewsEye.png" alt="views" style="width: 40px; height: 25px;"/></td>
+                        <td style="text-align: left;width: 72%;"><p>&nbsp;<b>{{ num_visits }}</b></p></td>
+                        <!-- <td>{% with '1234567891' as range %}
+                        {% for _ in range %}
+                            {% if movie.evaluation >= forloop.counter %}
+                                <span class="fa fa-star checked"></span>
+                            {% else %}
+                                <span class="fa fa-star"></span>
+                            {% endif %}
+            
+                        {% endfor %}
+                        {% endwith %}</td> -->
+                        <td><div class="Stars" style="--rating: {{ movie.evaluation }};"></div></td>
+
+                        <td style="text-align: right;width: 5%;"><p style="font-size: 30px;">&nbsp;<b>{{ movie.evaluation }}</b>/10&nbsp;&nbsp;</p></td>
+                    </tr>
+                    
+                </table>
+                
+            </div>
+        </section> 
+        <section class='bg-primary_black min-h-screen flex justify-center py-10'>
+            <div class="p-8 w-10/12 relative" >
+                <h2 class="text-gray-200 text-3xl font-medium">
+                    Description
+                </h2> <br>
+                <div class="flex justify-center  items-center min-w-full  movie_lis">
+                    <p class="text-gray-100 text-lg">
+                        {{movie.description}}
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    <script>
+        const nav = document.querySelector('nav')
+
+        document.addEventListener("scroll",e=>{
+            
+            if(scrollY>200){
+                nav.classList.add('bg-gray-900')
+          
+            }else{
+                nav.classList.remove('bg-gray-900')
+                
+            }
+        })
+
+    </script>
+{% endblock content %}
